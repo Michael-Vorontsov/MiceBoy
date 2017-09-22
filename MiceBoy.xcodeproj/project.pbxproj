@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045F6C91F74745B008A45DF /* PointDrawingView.swift */; };
 		D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */; };
 		D068CC0E1F73FC380083F045 /* MouseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* MouseEvent.swift */; };
 		D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */; };
 		D068CC101F73FC380083F045 /* DataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC01F7072A30069F8F2 /* DataMapper.swift */; };
 		D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */; };
 		D068CC121F73FC380083F045 /* ConnectionBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC41F7074C60069F8F2 /* ConnectionBrowser.swift */; };
+		D068CC141F740C820083F045 /* Mouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D068CC131F740C820083F045 /* Mouse.swift */; };
 		D075BD7E1F6FF3CE007B8C86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD7D1F6FF3CE007B8C86 /* AppDelegate.swift */; };
 		D075BD801F6FF3CE007B8C86 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD7F1F6FF3CE007B8C86 /* DiscoveryViewController.swift */; };
 		D075BD831F6FF3CE007B8C86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D075BD811F6FF3CE007B8C86 /* Main.storyboard */; };
@@ -69,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D045F6C91F74745B008A45DF /* PointDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDrawingView.swift; sourceTree = "<group>"; };
+		D068CC131F740C820083F045 /* Mouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mouse.swift; sourceTree = "<group>"; };
 		D075BD7A1F6FF3CE007B8C86 /* MiceBoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiceBoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BD7D1F6FF3CE007B8C86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D075BD7F1F6FF3CE007B8C86 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 				D075BDB91F6FF761007B8C86 /* Main.storyboard */,
 				D075BDBC1F6FF761007B8C86 /* Info.plist */,
 				D075BDBD1F6FF761007B8C86 /* MiceboyHost.entitlements */,
+				D068CC131F740C820083F045 /* Mouse.swift */,
+				D045F6C91F74745B008A45DF /* PointDrawingView.swift */,
 			);
 			path = MiceboyHost;
 			sourceTree = "<group>";
@@ -524,9 +530,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */,
+				D068CC141F740C820083F045 /* Mouse.swift in Sources */,
 				D068CC101F73FC380083F045 /* DataMapper.swift in Sources */,
 				D068CC0E1F73FC380083F045 /* MouseEvent.swift in Sources */,
 				D075BDB61F6FF761007B8C86 /* ViewController.swift in Sources */,
+				D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */,
 				D068CC121F73FC380083F045 /* ConnectionBrowser.swift in Sources */,
 				D075BDB41F6FF761007B8C86 /* AppDelegate.swift in Sources */,
 				D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */,

@@ -721,7 +721,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="minSize" width="478" height="268"/>
-                                            <size key="maxSize" width="478" height="10000000"/>
+                                            <size key="maxSize" width="480" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
@@ -736,15 +736,39 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="mHh-nA-Etk" customClass="PointDrawingView" customModule="MiceboyHost" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-NJ-cn9">
+                                        <rect key="frame" x="200" y="222" width="81" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="May-Bu-cgE">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="reset:" target="XfG-lQ-9wD" id="4qd-Tg-nWp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pMW-NJ-cn9" firstAttribute="centerX" secondItem="mHh-nA-Etk" secondAttribute="centerX" id="JhK-AB-NxU"/>
+                                    <constraint firstItem="pMW-NJ-cn9" firstAttribute="top" secondItem="mHh-nA-Etk" secondAttribute="top" constant="20" id="n5I-Qf-Ye2"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FWN-hz-JW2" secondAttribute="trailing" id="Hti-yr-uT6"/>
                             <constraint firstItem="FWN-hz-JW2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Jps-1h-Lms"/>
+                            <constraint firstAttribute="bottom" secondItem="mHh-nA-Etk" secondAttribute="bottom" id="O0i-Nr-vpj"/>
                             <constraint firstAttribute="bottom" secondItem="FWN-hz-JW2" secondAttribute="bottom" id="Q2o-f3-U3Y"/>
+                            <constraint firstItem="mHh-nA-Etk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="UJG-Px-Bt4"/>
+                            <constraint firstAttribute="trailing" secondItem="mHh-nA-Etk" secondAttribute="trailing" id="Z92-yN-icc"/>
                             <constraint firstItem="FWN-hz-JW2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="krO-EX-SB3"/>
+                            <constraint firstItem="mHh-nA-Etk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="x2R-NI-fOt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="drawingView" destination="mHh-nA-Etk" id="zeU-6o-ira"/>
                         <outlet property="textView" destination="RPv-1t-JCe" id="lzK-zl-cpd"/>
                     </connections>
                 </viewController>

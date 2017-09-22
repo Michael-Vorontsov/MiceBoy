@@ -49,13 +49,40 @@ class ConnectionSessionManager: NSObject {
     super.init()
     session.delegate = self
   }
-  
+
+  typealias StreamToken = GToken<InputStream, Void>
+  typealias StateToken = GToken<MCSessionState, Void>
+
   private let subscriptions = NSHashTable<Token>.weakObjects()
+  private let streamSubscriptions = NSHashTable<StreamToken>.weakObjects()
+  private let stateSubscriptions = NSHashTable<StateToken>.weakObjects()
 
   func subscribe<T: Codable>( handler: @escaping  SpecIncommingObjectHandler<T>) -> TokenProtocol {
     let token = Token(handler: handler)
     subscriptions.add(token)
     return token
+  }
+  
+  func subscribe(streamHandler: @escaping (InputStream)->Void ) -> TokenProtocol {
+    let token = StreamToken(handler: streamHandler)
+    streamSubscriptions.add(token)
+    return token
+  }
+
+  func subscribeState(stateHandler: @escaping (MCSessionState)->Void ) -> TokenProtocol {
+    let token = StateToken(handler: stateHandler)
+    stateSubscriptions.add(token)
+    return token
+  }
+
+  enum SessionError: Error {
+    case noPeers
+  }
+  
+  func establishStream() throws -> OutputStream {
+    guard let peer = session.connectedPeers.first else { throw SessionError.noPeers }
+    let stream = try session.startStream(withName: "mouseEvent", toPeer: peer)
+    return stream
   }
   
   func send<T: Codable>(object: T) {
@@ -77,14 +104,20 @@ extension ConnectionSessionManager : MCSessionDelegate {
   
   func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
     NSLog("%@", "peer \(peerID) didChangeState: \(state)")
-//    session.connectPeer(peerID, withNearbyConnectionData: Data())
+    guard stateSubscriptions.count > 0 else {
+      print("No subscription avaliable to react on state!")
+      return
+    }
+    for each in stateSubscriptions.allObjects {
+      each.handler(state)
+    }
   }
   
   
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-    NSLog("%@", "didReceiveData: \(data)")
+//    NSLog("%@", "didReceiveData: \(data)")
     guard subscriptions.count > 0 else {
-      print("No sucription avaliable to process data!")
+      print("No subscription avaliable to process data!")
       return
     }
     for each in subscriptions.allObjects {
@@ -99,6 +132,13 @@ extension ConnectionSessionManager : MCSessionDelegate {
   
   func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
     NSLog("%@", "didReceiveStream")
+    guard streamSubscriptions.count > 0 else {
+      print("No subscription avaliable to process stream!")
+      return
+    }
+    for each in streamSubscriptions.allObjects {
+      each.handler(stream)
+    }
   }
   
   func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
