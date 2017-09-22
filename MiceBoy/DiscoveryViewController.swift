@@ -8,9 +8,27 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreMotion
 
 class DiscoveryViewController: UIViewController {
   @IBOutlet var textView: UITextView!
+  
+  @IBAction func switchActive(_ sender: UISwitch) {
+    paused = !sender.isOn
+  }
+  
+  @IBAction func buttonTouched(_ sender: Any) {
+    paused = true
+  }
+  
+  @IBAction func buttonReleased(_ sender: Any) {
+    paused = false
+  }
+  
+  
+  @IBAction func changeSensitivity(_ sender: UISlider) {
+    sensibility = Double(sender.value)
+  }
   
   let connectionService = ConnectionBrowser(peerName: UIDevice.current.name)
   var session: ConnectionSessionManager? {
@@ -60,18 +78,67 @@ class DiscoveryViewController: UIViewController {
     }
     tokens.append(token)
     connectionService.startDiscovery()
+    enableMotioTracking()
+
+  }
+  
+  var sensibility = 10.0
+  
+  var zeroGravity: CMAcceleration?
+  
+  func enableMotioTracking() {
+    guard motionManager.isDeviceMotionActive == false else { return }
+//    motionManager.gyroUpdateInterval = 0.1
+    motionManager.deviceMotionUpdateInterval = 0.1
+    motionManager.startDeviceMotionUpdates(to: OperationQueue()) {[unowned self] (data, error) in
+      if let error = error {
+        self.print(error.localizedDescription)
+        return
+      }
+      guard self.paused == false else { return }
+      if let rotationRate = data?.rotationRate {
+                let event = MouseEvent.move(delta: CGPoint(
+                  x: -rotationRate.z * self.sensibility,
+                  y: -rotationRate.x * self.sensibility)
+                )
+      
+//      if let gravity = data?.gravity {
+//        guard let zeroGravity = self.zeroGravity else {
+//          self.zeroGravity = gravity
+//          return
+//        }
+//
+//        let event = MouseEvent.move(delta: CGPoint(
+//          x: (zeroGravity.x - gravity.x) * self.sensibility,
+//          y: (zeroGravity.y - gravity.y) * self.sensibility)
+//        )
+        guard let stream = self.outputStream else { return }
+        stream.send(object: event)
+      }
+    }
+  }
+
+  var paused = false {
+    didSet {
+      if paused {
+        zeroGravity = nil
+      }
+    }
   }
   
   @IBAction func tapRecognised(_ sender: UITapGestureRecognizer) {
-    guard let session = session else { return }
-    print("Sending event to peer: \(session)")
-    let button = (sender.numberOfTouches == 1) ? MouseEvent.ButtonType.left : MouseEvent.ButtonType.right
+//    guard let session = session else { return }
+//    print("Sending event to peer: \(session)")
+//    let button = (sender.numberOfTouches == 1) ? MouseEvent.ButtonType.left : MouseEvent.ButtonType.right
     switch sender.state {
     case .began:
-      session.send(object: MouseEvent.button(button, state: .down))
+      paused = true
+//      session.send(object: MouseEvent.button(button, state: .down))
     case .ended, .cancelled:
-      session.send(object: MouseEvent.button(button, state: .up))
+      paused = false
+//      session.send(object: MouseEvent.button(button, state: .up))
     default: break;
+      paused = false
     }
   }
   
@@ -103,10 +170,7 @@ class DiscoveryViewController: UIViewController {
 //    session?.send(object: event)
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
+  let motionManager = CMMotionManager()
   
   
 }
