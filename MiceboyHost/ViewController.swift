@@ -86,7 +86,10 @@ class ViewController: NSViewController {
   var observationTokens = [NSKeyValueObservation]()
   
   func setupEventsProcessor() {
-    let mouseMovement =  MouseMoveEventProcessor()
+//    let mouseMovement =  FooMouseMoveEventProcessor()
+    let mouseMovement =  QuartzEventTapMouseMoveEventProcessor()
+//    let mouseMovement =  DrawMouseEventProcesor(view: drawingView)
+    
     let accumulator = AccumulatedMoveEventsProcessor(nextProcessor: mouseMovement)
     let sensitivity = SensitivityEventsProcesor(nextProcessor: accumulator)
 
@@ -99,54 +102,12 @@ class ViewController: NSViewController {
     eventsProcessor = pauseProcessor
   }
   
-  var accumulatedMouseMovement: NSPoint = NSPoint.zero
-  
-  func accumulateMousePosition() {
-    guard pause == false else { return }
-
-    let power = accumulatedMouseMovement.x * accumulatedMouseMovement.x + accumulatedMouseMovement.y * accumulatedMouseMovement.y
-    guard power > 25 else { return }
-    
-    let currentPostion = NSEvent.mouseLocation
-    let destination = NSPoint(x: currentPostion.x + accumulatedMouseMovement.x, y: NSScreen.main!.frame.size.height - currentPostion.y + accumulatedMouseMovement.y)
-    guard let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: destination, mouseButton: .left) else {
-      return
-    }
-    moveEvent.post(tap: CGEventTapLocation.cghidEventTap)
-    //    DispatchQueue.main.asyncAfter(deadline: .now() + 1/power) {
-    //      self.accumulatedMouseMovement()
-    //    }
-  }
-  
-  func mouseMoveAndClick(onPoint point: CGPoint) {
-    //    drawingView.add(point: point)
-    
-    
-    let currentPostion = NSEvent.mouseLocation
-    let destination = NSPoint(x: currentPostion.x + point.x, y: NSScreen.main!.frame.size.height - currentPostion.y + point.y)
-    guard let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: destination, mouseButton: .left) else {
-      return
-    }
-    moveEvent.post(tap: CGEventTapLocation.cghidEventTap)
-    //    guard let downEvent = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: destination, mouseButton: .left) else {
-    //      return
-    //    }
-    //    downEvent.post(tap: CGEventTapLocation.cghidEventTap)
-    //    guard let upEvent = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: destination, mouseButton: .left) else {
-    //      return
-    //    }
-    //    upEvent.post(tap: CGEventTapLocation.cghidEventTap)
-  }
   
   @IBAction func reset(_ sender: Any) {
     drawingView.reset()
   }
   
-  var pause = false {
-    didSet {
-      accumulatedMouseMovement = .zero
-    }
-  }
+  var pause = false
   
   func didReceive(event: RemoteEvent) {
     
@@ -154,57 +115,9 @@ class ViewController: NSViewController {
     if let pauseProcessor = self.eventsProcessor as? PauseEventsProcessor {
       pauseProcessor.processRemoteEvent(motionEvent: event)
     }
-    /*
-    var details = "\n Did recive mouse event"
-    switch (event) {
-    case .move(let delta):
-      details += "\nMove: (\(delta.x), \(delta.y))"
-//      mouseMoveAndClick(onPoint: delta)
-      
-      accumulatedMouseMovement.x += delta.x
-      accumulatedMouseMovement.y += delta.y
-      accumulateMousePosition()
-
-      //        DispatchQueue.global(qos: .default).async {
-      ////          _ = try? reportMouseMove(x:Int( delta.x), y: Int(delta.y))
-      //          _ = try? reportMouseMove(x: 5, y: 5)
-      //        }
-      
-    case .pause( let value):
-      pause = value
-    case .motionData(let motionData):
-      guard pause == false else { return }
-      //        let mouseMovement = CGPoint(x: motionData.rotationChange.z * 50.0, y: motionData.rotationChange.x * 50.0)
-      accumulatedMouseMovement.x += CGFloat(-motionData.rotationChange.z * sensitivity)
-      accumulatedMouseMovement.y += CGFloat(-motionData.rotationChange.x * sensitivity)
-      accumulateMousePosition()
-      
-    case .button(let type, state: let state):
-      switch type {
-      case .left:
-        details += "\nLeft "
-      case .right:
-        details += "\nRight "
-      }
-      switch state {
-      case .up:
-        details += "released "
-      case .down:
-        details += "pressed"
-      }
-    }
- */
-    //      self.textView.textStorage?.mutableString.append(details)
   }
   
   let decoder = JSONDecoder()
-  
-  override var representedObject: Any? {
-    didSet {
-      // Update the view, if already loaded.
-    }
-  }
-  
   
 }
 

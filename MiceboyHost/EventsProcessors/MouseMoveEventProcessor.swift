@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 
-class MouseMoveEventProcessor: MotionEventsProcessing {
+class QuartzEventTapMouseMoveEventProcessor: MotionEventsProcessing {
   func processRemoteEvent(motionEvent: RemoteEvent) {
     guard case .move(let delta) = motionEvent else { return }
     let currentPostion = NSEvent.mouseLocation
@@ -29,6 +29,27 @@ class MouseMoveEventProcessor: MotionEventsProcessing {
     //      return
     //    }
     //    upEvent.post(tap: CGEventTapLocation.cghidEventTap)
+  }
+  
+}
+
+class DrawMouseEventProcesor: MotionEventsProcessing {
+  var drawingView: PointDrawingView
+  init (view: PointDrawingView) {
+    drawingView = view
+  }
+  
+  func processRemoteEvent(motionEvent: RemoteEvent) {
+    guard case .move(let delta) = motionEvent else { return }
+
+    drawingView.add(point: delta)
+  }
+}
+
+class FooMouseMoveEventProcessor: MotionEventsProcessing {
+  func processRemoteEvent(motionEvent: RemoteEvent) {
+    guard case .move(let delta) = motionEvent else { return }
+    _ = try? reportMouseMove(x: Int(delta.x), y: Int(delta.y))
   }
   
 }

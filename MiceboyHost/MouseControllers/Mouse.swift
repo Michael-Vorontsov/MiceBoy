@@ -132,7 +132,7 @@ func reportMouseMove(x: Int, y: Int) throws {
 
 }
 
-func main() throws {
+func mouse_main() throws {
   var iterator: io_iterator_t = 0
   var connect: io_connect_t = 0
   
