@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045F6C91F74745B008A45DF /* PointDrawingView.swift */; };
+		D04E83191F784053009A9512 /* MotionToMoveEventsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E83181F784053009A9512 /* MotionToMoveEventsProcessor.swift */; };
+		D04E831B1F78406F009A9512 /* AccumulatedMoveEventsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E831A1F78406F009A9512 /* AccumulatedMoveEventsProcessor.swift */; };
+		D04E831D1F784095009A9512 /* PauseEventsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E831C1F784095009A9512 /* PauseEventsProcessor.swift */; };
+		D04E831F1F7840BB009A9512 /* SensitivityEventsProcesor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E831E1F7840BB009A9512 /* SensitivityEventsProcesor.swift */; };
+		D04E83211F7840E2009A9512 /* MouseMoveEventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E83201F7840E2009A9512 /* MouseMoveEventProcessor.swift */; };
 		D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */; };
 		D068CC0E1F73FC380083F045 /* RemoteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */; };
 		D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */; };
@@ -71,6 +76,11 @@
 
 /* Begin PBXFileReference section */
 		D045F6C91F74745B008A45DF /* PointDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDrawingView.swift; sourceTree = "<group>"; };
+		D04E83181F784053009A9512 /* MotionToMoveEventsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionToMoveEventsProcessor.swift; sourceTree = "<group>"; };
+		D04E831A1F78406F009A9512 /* AccumulatedMoveEventsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccumulatedMoveEventsProcessor.swift; sourceTree = "<group>"; };
+		D04E831C1F784095009A9512 /* PauseEventsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseEventsProcessor.swift; sourceTree = "<group>"; };
+		D04E831E1F7840BB009A9512 /* SensitivityEventsProcesor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitivityEventsProcesor.swift; sourceTree = "<group>"; };
+		D04E83201F7840E2009A9512 /* MouseMoveEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseMoveEventProcessor.swift; sourceTree = "<group>"; };
 		D068CC131F740C820083F045 /* Mouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mouse.swift; sourceTree = "<group>"; };
 		D075BD7A1F6FF3CE007B8C86 /* MiceBoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiceBoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BD7D1F6FF3CE007B8C86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,6 +290,11 @@
 			isa = PBXGroup;
 			children = (
 				D0C6D6571F77D7C000FF1C42 /* RemoteEventsProcessor.swift */,
+				D04E83181F784053009A9512 /* MotionToMoveEventsProcessor.swift */,
+				D04E831A1F78406F009A9512 /* AccumulatedMoveEventsProcessor.swift */,
+				D04E831C1F784095009A9512 /* PauseEventsProcessor.swift */,
+				D04E831E1F7840BB009A9512 /* SensitivityEventsProcesor.swift */,
+				D04E83201F7840E2009A9512 /* MouseMoveEventProcessor.swift */,
 			);
 			path = EventsProcessors;
 			sourceTree = "<group>";
@@ -553,14 +568,19 @@
 			files = (
 				D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */,
 				D068CC141F740C820083F045 /* Mouse.swift in Sources */,
+				D04E831F1F7840BB009A9512 /* SensitivityEventsProcesor.swift in Sources */,
+				D04E831D1F784095009A9512 /* PauseEventsProcessor.swift in Sources */,
 				D068CC101F73FC380083F045 /* DataMapper.swift in Sources */,
 				D068CC0E1F73FC380083F045 /* RemoteEvent.swift in Sources */,
 				D075BDB61F6FF761007B8C86 /* ViewController.swift in Sources */,
 				D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */,
 				D068CC121F73FC380083F045 /* ConnectionBrowser.swift in Sources */,
+				D04E83191F784053009A9512 /* MotionToMoveEventsProcessor.swift in Sources */,
+				D04E83211F7840E2009A9512 /* MouseMoveEventProcessor.swift in Sources */,
 				D075BDB41F6FF761007B8C86 /* AppDelegate.swift in Sources */,
 				D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */,
 				D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */,
+				D04E831B1F78406F009A9512 /* AccumulatedMoveEventsProcessor.swift in Sources */,
 				D0C6D6581F77D7C000FF1C42 /* RemoteEventsProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
