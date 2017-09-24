@@ -95,35 +95,42 @@ class DiscoveryViewController: UIViewController {
         self.print(error.localizedDescription)
         return
       }
-      guard self.paused == false else { return }
-      if let rotationRate = data?.rotationRate {
-                let event = MouseEvent.move(delta: CGPoint(
-                  x: -rotationRate.z * self.sensibility,
-                  y: -rotationRate.x * self.sensibility)
-                )
+      guard self.paused == false, let data = data else { return }
       
-//      if let gravity = data?.gravity {
-//        guard let zeroGravity = self.zeroGravity else {
-//          self.zeroGravity = gravity
-//          return
-//        }
-//
-//        let event = MouseEvent.move(delta: CGPoint(
-//          x: (zeroGravity.x - gravity.x) * self.sensibility,
-//          y: (zeroGravity.y - gravity.y) * self.sensibility)
-//        )
-        guard let stream = self.outputStream else { return }
-        stream.send(object: event)
-      }
+      let event = MouseEvent.motionData(motion: MouseEvent.MotionData(
+        gravity: MouseEvent.Vector(
+          x: data.gravity.x,
+          y: data.gravity.y,
+          z: data.gravity.z),
+        rotationChange: MouseEvent.Vector(
+          x: data.rotationRate.x,
+          y: data.rotationRate.y,
+          z: data.rotationRate.z),
+        acceleration: MouseEvent.Vector(
+          x: data.userAcceleration.x,
+          y: data.userAcceleration.y,
+          z: data.userAcceleration.z)
+      ))
+      
+//    let rotationRate = data.rotationRate
+//      let event = MouseEvent.move(delta: CGPoint(
+//        x: -rotationRate.z * self.sensibility,
+//        y: -rotationRate.x * self.sensibility)
+//      )
+      self.sendToHost(event: event)
     }
   }
 
   var paused = false {
     didSet {
-      if paused {
-        zeroGravity = nil
-      }
+      guard let stream = self.outputStream else { return }
+      stream.send(object: MouseEvent.pause(paused))
     }
+  }
+  
+  func sendToHost(event: MouseEvent) {
+    guard let stream = self.outputStream else { return }
+    stream.send(object: event)
   }
   
   @IBAction func tapRecognised(_ sender: UITapGestureRecognizer) {
@@ -204,7 +211,6 @@ extension DiscoveryViewController : StreamDelegate {
       print("Stream established!")
     case .errorOccurred:
       print("Stream failed!")
-
 //    case .hasSpaceAvailable:
 //      print("Stream ready!")
     default: break
@@ -212,4 +218,5 @@ extension DiscoveryViewController : StreamDelegate {
     }
   }
 }
+
 

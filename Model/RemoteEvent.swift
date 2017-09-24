@@ -1,5 +1,5 @@
 //
-//  MouseEvent.swift
+//  RemoteEvent.swift
 //  MiceBoy
 //
 //  Created by Mykhailo Vorontsov on 9/18/17.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreGraphics
 
-enum MouseEvent: Codable {
+enum RemoteEvent: Codable {
   enum ButtonType: Int, Codable {
     case left
     case right
@@ -22,13 +22,32 @@ enum MouseEvent: Codable {
   
   case move(delta: CGPoint)
   case button(ButtonType, state: ButtonState)
+  case motionData(motion: MotionData)
+  case pause(Bool)
 }
 
-extension MouseEvent {
+extension RemoteEvent {
+  
+  struct Vector: Codable {
+    let x: Double
+    let y: Double
+    let z: Double
+  }
+  
+  struct MotionData: Codable {
+    let gravity: Vector
+    let rotationChange: Vector
+    let acceleration: Vector
+    //TODO: Add alt parameters
+  }
+  
+  
 //  fileprivate
   enum CodingKeys: String, CodingKey {
     case move
     case button
+    case motion
+    case pause
   }
   
   enum MouseEventError: Error {
@@ -49,6 +68,15 @@ extension MouseEvent {
       self = .button(typeValue, state: stateValue)
       return
     }
+    if let value = try? values.decode(MotionData.self, forKey: .motion) {
+      self = .motionData(motion: value)
+      return
+    }
+    if let value = try? values.decode(Bool.self, forKey: .pause) {
+      self = RemoteEvent.pause(value)
+      return
+    }
+    
     throw MouseEventError.decoding
   }
   
@@ -60,6 +88,10 @@ extension MouseEvent {
     case .button(let type, let state):
       let mixedCode = type.rawValue << 4 + state.rawValue
       try container.encode(mixedCode, forKey: .button)
+    case .motionData(let motion):
+      try container.encode(motion, forKey: .motion)
+    case .pause(let value):
+      try container.encode(value, forKey: .pause)
     }
     
   }

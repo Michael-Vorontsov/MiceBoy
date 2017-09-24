@@ -738,23 +738,24 @@
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="mHh-nA-Etk" customClass="PointDrawingView" customModule="MiceboyHost" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-NJ-cn9">
-                                        <rect key="frame" x="200" y="222" width="81" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="May-Bu-cgE">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="reset:" target="XfG-lQ-9wD" id="4qd-Tg-nWp"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="pMW-NJ-cn9" firstAttribute="centerX" secondItem="mHh-nA-Etk" secondAttribute="centerX" id="JhK-AB-NxU"/>
-                                    <constraint firstItem="pMW-NJ-cn9" firstAttribute="top" secondItem="mHh-nA-Etk" secondAttribute="top" constant="20" id="n5I-Qf-Ye2"/>
-                                </constraints>
                             </customView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-NJ-cn9">
+                                <rect key="frame" x="199" y="222" width="81" height="32"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="May-Bu-cgE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="reset:" target="XfG-lQ-9wD" id="4qd-Tg-nWp"/>
+                                </connections>
+                            </button>
+                            <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MU1-8p-9WR">
+                                <rect key="frame" x="226" y="182" width="28" height="30"/>
+                                <sliderCell key="cell" alignment="left" maxValue="100" allowsTickMarkValuesOnly="YES" sliderType="circular" id="sL4-AY-0Sd"/>
+                                <connections>
+                                    <action selector="changeSensitivity:" target="XfG-lQ-9wD" id="w6v-1W-Rsk"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FWN-hz-JW2" secondAttribute="trailing" id="Hti-yr-uT6"/>
@@ -763,7 +764,11 @@
                             <constraint firstAttribute="bottom" secondItem="FWN-hz-JW2" secondAttribute="bottom" id="Q2o-f3-U3Y"/>
                             <constraint firstItem="mHh-nA-Etk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="UJG-Px-Bt4"/>
                             <constraint firstAttribute="trailing" secondItem="mHh-nA-Etk" secondAttribute="trailing" id="Z92-yN-icc"/>
+                            <constraint firstItem="MU1-8p-9WR" firstAttribute="top" secondItem="pMW-NJ-cn9" secondAttribute="bottom" constant="20" id="ZSc-yX-eQS"/>
+                            <constraint firstItem="pMW-NJ-cn9" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="aQ1-TZ-jPZ"/>
                             <constraint firstItem="FWN-hz-JW2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="krO-EX-SB3"/>
+                            <constraint firstItem="MU1-8p-9WR" firstAttribute="centerX" secondItem="pMW-NJ-cn9" secondAttribute="centerX" id="lHE-9o-RPQ"/>
+                            <constraint firstItem="pMW-NJ-cn9" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="sjM-ag-PdN"/>
                             <constraint firstItem="mHh-nA-Etk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="x2R-NI-fOt"/>
                         </constraints>
                     </view>

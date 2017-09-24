@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045F6C91F74745B008A45DF /* PointDrawingView.swift */; };
 		D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */; };
-		D068CC0E1F73FC380083F045 /* MouseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* MouseEvent.swift */; };
+		D068CC0E1F73FC380083F045 /* RemoteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */; };
 		D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */; };
 		D068CC101F73FC380083F045 /* DataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC01F7072A30069F8F2 /* DataMapper.swift */; };
 		D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */; };
@@ -22,15 +22,13 @@
 		D075BD881F6FF3CE007B8C86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D075BD861F6FF3CE007B8C86 /* LaunchScreen.storyboard */; };
 		D075BD931F6FF3CE007B8C86 /* MiceBoyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD921F6FF3CE007B8C86 /* MiceBoyTests.swift */; };
 		D075BD9E1F6FF3CE007B8C86 /* MiceBoyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD9D1F6FF3CE007B8C86 /* MiceBoyUITests.swift */; };
-		D075BDAC1F6FF3E8007B8C86 /* ConnectionServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDAB1F6FF3E8007B8C86 /* ConnectionServiceManager.swift */; };
 		D075BDB41F6FF761007B8C86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDB31F6FF761007B8C86 /* AppDelegate.swift */; };
 		D075BDB61F6FF761007B8C86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDB51F6FF761007B8C86 /* ViewController.swift */; };
 		D075BDB81F6FF761007B8C86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D075BDB71F6FF761007B8C86 /* Assets.xcassets */; };
 		D075BDBB1F6FF761007B8C86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D075BDB91F6FF761007B8C86 /* Main.storyboard */; };
 		D075BDC71F6FF761007B8C86 /* MiceboyHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDC61F6FF761007B8C86 /* MiceboyHostTests.swift */; };
 		D075BDD21F6FF761007B8C86 /* MiceboyHostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDD11F6FF761007B8C86 /* MiceboyHostUITests.swift */; };
-		D075BDDE1F6FF782007B8C86 /* ConnectionServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BDAB1F6FF3E8007B8C86 /* ConnectionServiceManager.swift */; };
-		D0BCEDB71F7025160069F8F2 /* MouseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* MouseEvent.swift */; };
+		D0BCEDB71F7025160069F8F2 /* RemoteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */; };
 		D0BCEDBB1F70305B0069F8F2 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = D0BCEDBA1F70305B0069F8F2 /* Cartfile */; };
 		D0BCEDBD1F7070EB0069F8F2 /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */; };
 		D0BCEDBF1F7071C50069F8F2 /* ConnectionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */; };
@@ -86,7 +84,6 @@
 		D075BD991F6FF3CE007B8C86 /* MiceBoyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiceBoyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BD9D1F6FF3CE007B8C86 /* MiceBoyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiceBoyUITests.swift; sourceTree = "<group>"; };
 		D075BD9F1F6FF3CE007B8C86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D075BDAB1F6FF3E8007B8C86 /* ConnectionServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionServiceManager.swift; sourceTree = "<group>"; };
 		D075BDB11F6FF761007B8C86 /* MiceboyHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiceboyHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BDB31F6FF761007B8C86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D075BDB51F6FF761007B8C86 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +97,7 @@
 		D075BDCD1F6FF761007B8C86 /* MiceboyHostUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiceboyHostUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BDD11F6FF761007B8C86 /* MiceboyHostUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiceboyHostUITests.swift; sourceTree = "<group>"; };
 		D075BDD31F6FF761007B8C86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0BCEDB61F7025160069F8F2 /* MouseEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseEvent.swift; sourceTree = "<group>"; };
+		D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteEvent.swift; sourceTree = "<group>"; };
 		D0BCEDBA1F70305B0069F8F2 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
 		D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSession.swift; sourceTree = "<group>"; };
@@ -158,6 +155,7 @@
 		D075BD711F6FF3CE007B8C86 = {
 			isa = PBXGroup;
 			children = (
+				D0C6D6561F77CEE800FF1C42 /* Model */,
 				D0BCEDB91F7030470069F8F2 /* Meta */,
 				D075BDDD1F6FF770007B8C86 /* Service */,
 				D075BD7C1F6FF3CE007B8C86 /* MiceBoy */,
@@ -250,9 +248,7 @@
 		D075BDDD1F6FF770007B8C86 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				D075BDAB1F6FF3E8007B8C86 /* ConnectionServiceManager.swift */,
 				D0BCEDBE1F7071C50069F8F2 /* ConnectionSession.swift */,
-				D0BCEDB61F7025160069F8F2 /* MouseEvent.swift */,
 				D0BCEDBC1F7070EB0069F8F2 /* SubscriptionToken.swift */,
 				D0BCEDC01F7072A30069F8F2 /* DataMapper.swift */,
 				D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */,
@@ -267,6 +263,14 @@
 				D0BCEDBA1F70305B0069F8F2 /* Cartfile */,
 			);
 			name = Meta;
+			sourceTree = "<group>";
+		};
+		D0C6D6561F77CEE800FF1C42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,9 +507,8 @@
 				D0BCEDBF1F7071C50069F8F2 /* ConnectionSession.swift in Sources */,
 				D0BCEDC51F7074C60069F8F2 /* ConnectionBrowser.swift in Sources */,
 				D0BCEDBD1F7070EB0069F8F2 /* SubscriptionToken.swift in Sources */,
-				D0BCEDB71F7025160069F8F2 /* MouseEvent.swift in Sources */,
+				D0BCEDB71F7025160069F8F2 /* RemoteEvent.swift in Sources */,
 				D0BCEDC31F7074840069F8F2 /* ConnectionAdvertiser.swift in Sources */,
-				D075BDAC1F6FF3E8007B8C86 /* ConnectionServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,14 +535,13 @@
 				D068CC0F1F73FC380083F045 /* SubscriptionToken.swift in Sources */,
 				D068CC141F740C820083F045 /* Mouse.swift in Sources */,
 				D068CC101F73FC380083F045 /* DataMapper.swift in Sources */,
-				D068CC0E1F73FC380083F045 /* MouseEvent.swift in Sources */,
+				D068CC0E1F73FC380083F045 /* RemoteEvent.swift in Sources */,
 				D075BDB61F6FF761007B8C86 /* ViewController.swift in Sources */,
 				D045F6CA1F74745B008A45DF /* PointDrawingView.swift in Sources */,
 				D068CC121F73FC380083F045 /* ConnectionBrowser.swift in Sources */,
 				D075BDB41F6FF761007B8C86 /* AppDelegate.swift in Sources */,
 				D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */,
 				D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */,
-				D075BDDE1F6FF782007B8C86 /* ConnectionServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
