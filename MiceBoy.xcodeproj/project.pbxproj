@@ -35,6 +35,7 @@
 		D0BCEDC11F7072A30069F8F2 /* DataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC01F7072A30069F8F2 /* DataMapper.swift */; };
 		D0BCEDC31F7074840069F8F2 /* ConnectionAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */; };
 		D0BCEDC51F7074C60069F8F2 /* ConnectionBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC41F7074C60069F8F2 /* ConnectionBrowser.swift */; };
+		D0C6D6581F77D7C000FF1C42 /* RemoteEventsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6D6571F77D7C000FF1C42 /* RemoteEventsProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		D0BCEDC01F7072A30069F8F2 /* DataMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMapper.swift; sourceTree = "<group>"; };
 		D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionAdvertiser.swift; sourceTree = "<group>"; };
 		D0BCEDC41F7074C60069F8F2 /* ConnectionBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionBrowser.swift; sourceTree = "<group>"; };
+		D0C6D6571F77D7C000FF1C42 /* RemoteEventsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteEventsProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,13 +217,14 @@
 		D075BDB21F6FF761007B8C86 /* MiceboyHost */ = {
 			isa = PBXGroup;
 			children = (
+				D0C6D65A1F781E7200FF1C42 /* MouseControllers */,
+				D0C6D6591F781E5200FF1C42 /* EventsProcessors */,
 				D075BDB31F6FF761007B8C86 /* AppDelegate.swift */,
 				D075BDB51F6FF761007B8C86 /* ViewController.swift */,
 				D075BDB71F6FF761007B8C86 /* Assets.xcassets */,
 				D075BDB91F6FF761007B8C86 /* Main.storyboard */,
 				D075BDBC1F6FF761007B8C86 /* Info.plist */,
 				D075BDBD1F6FF761007B8C86 /* MiceboyHost.entitlements */,
-				D068CC131F740C820083F045 /* Mouse.swift */,
 				D045F6C91F74745B008A45DF /* PointDrawingView.swift */,
 			);
 			path = MiceboyHost;
@@ -271,6 +274,22 @@
 				D0BCEDB61F7025160069F8F2 /* RemoteEvent.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D0C6D6591F781E5200FF1C42 /* EventsProcessors */ = {
+			isa = PBXGroup;
+			children = (
+				D0C6D6571F77D7C000FF1C42 /* RemoteEventsProcessor.swift */,
+			);
+			path = EventsProcessors;
+			sourceTree = "<group>";
+		};
+		D0C6D65A1F781E7200FF1C42 /* MouseControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D068CC131F740C820083F045 /* Mouse.swift */,
+			);
+			path = MouseControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,6 +561,7 @@
 				D075BDB41F6FF761007B8C86 /* AppDelegate.swift in Sources */,
 				D068CC0D1F73FC380083F045 /* ConnectionSession.swift in Sources */,
 				D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */,
+				D0C6D6581F77D7C000FF1C42 /* RemoteEventsProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

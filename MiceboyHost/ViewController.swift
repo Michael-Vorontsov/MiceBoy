@@ -63,9 +63,11 @@ class ViewController: NSViewController {
   
   var tokens = [TokenProtocol]()
   
+  var eventsProcessor: MotionEventsProcessing?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    setupEventsProcessor()
     tokens.append(connectionService.subscribe { [unowned self] (peerInvitation) in
       DispatchQueue.main.async {
         self.textView.textStorage?.mutableString.append("\n Accpeting invitation from:\(peerInvitation.peerName)")
@@ -81,6 +83,21 @@ class ViewController: NSViewController {
     // Do any additional setup after loading the view.
   }
   
+  var observationTokens = [NSKeyValueObservation]()
+  
+  func setupEventsProcessor() {
+    let mouseMovement =  MouseMoveEventProcessor()
+    let accumulator = AccumulatedMoveEventsProcessor(nextProcessor: mouseMovement)
+    let sensitivity = SensitivityEventsProcesor(nextProcessor: accumulator)
+
+//    observationTokens.append(self.observe(\.sensitivity) { (controller, value) in
+//      sensitivity.sensitivity = CGFloat(controller.sensitivity)
+//    })
+    
+    let motionProcessor = MotionToMoveEventsProcessor(nextProcessor: sensitivity)
+    let pauseProcessor = PauseEventsProcessor(nextProcessor: motionProcessor)
+    eventsProcessor = pauseProcessor
+  }
   
   var accumulatedMouseMovement: NSPoint = NSPoint.zero
   
@@ -132,6 +149,12 @@ class ViewController: NSViewController {
   }
   
   func didReceive(event: RemoteEvent) {
+    
+    self.eventsProcessor?.processRemoteEvent(motionEvent: event)
+    if let pauseProcessor = self.eventsProcessor as? PauseEventsProcessor {
+      pauseProcessor.processRemoteEvent(motionEvent: event)
+    }
+    /*
     var details = "\n Did recive mouse event"
     switch (event) {
     case .move(let delta):
@@ -170,6 +193,7 @@ class ViewController: NSViewController {
         details += "pressed"
       }
     }
+ */
     //      self.textView.textStorage?.mutableString.append(details)
   }
   
