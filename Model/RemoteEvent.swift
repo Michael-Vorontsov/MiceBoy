@@ -50,7 +50,7 @@ extension RemoteEvent {
     case pause
   }
   
-  enum MouseEventError: Error {
+  enum RemoteEventError: Error {
     case decoding
   }
   
@@ -77,7 +77,7 @@ extension RemoteEvent {
       return
     }
     
-    throw MouseEventError.decoding
+    throw RemoteEventError.decoding
   }
   
   func encode(to encoder: Encoder) throws {

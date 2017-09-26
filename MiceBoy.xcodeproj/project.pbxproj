@@ -20,6 +20,8 @@
 		D068CC111F73FC380083F045 /* ConnectionAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC21F7074840069F8F2 /* ConnectionAdvertiser.swift */; };
 		D068CC121F73FC380083F045 /* ConnectionBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCEDC41F7074C60069F8F2 /* ConnectionBrowser.swift */; };
 		D068CC141F740C820083F045 /* Mouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D068CC131F740C820083F045 /* Mouse.swift */; };
+		D06FDE711F7A4CB400CC3DAB /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FDE701F7A4CB400CC3DAB /* EventsViewController.swift */; };
+		D06FDE741F7A4DC700CC3DAB /* OutputStream+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FDE731F7A4DC700CC3DAB /* OutputStream+Extensions.swift */; };
 		D075BD7E1F6FF3CE007B8C86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD7D1F6FF3CE007B8C86 /* AppDelegate.swift */; };
 		D075BD801F6FF3CE007B8C86 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075BD7F1F6FF3CE007B8C86 /* DiscoveryViewController.swift */; };
 		D075BD831F6FF3CE007B8C86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D075BD811F6FF3CE007B8C86 /* Main.storyboard */; };
@@ -82,6 +84,8 @@
 		D04E831E1F7840BB009A9512 /* SensitivityEventsProcesor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitivityEventsProcesor.swift; sourceTree = "<group>"; };
 		D04E83201F7840E2009A9512 /* MouseMoveEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseMoveEventProcessor.swift; sourceTree = "<group>"; };
 		D068CC131F740C820083F045 /* Mouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mouse.swift; sourceTree = "<group>"; };
+		D06FDE701F7A4CB400CC3DAB /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		D06FDE731F7A4DC700CC3DAB /* OutputStream+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputStream+Extensions.swift"; sourceTree = "<group>"; };
 		D075BD7A1F6FF3CE007B8C86 /* MiceBoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiceBoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D075BD7D1F6FF3CE007B8C86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D075BD7F1F6FF3CE007B8C86 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
@@ -164,9 +168,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D06FDE721F7A4DA200CC3DAB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D06FDE731F7A4DC700CC3DAB /* OutputStream+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D075BD711F6FF3CE007B8C86 = {
 			isa = PBXGroup;
 			children = (
+				D06FDE721F7A4DA200CC3DAB /* Extensions */,
 				D0C6D6561F77CEE800FF1C42 /* Model */,
 				D0BCEDB91F7030470069F8F2 /* Meta */,
 				D075BDDD1F6FF770007B8C86 /* Service */,
@@ -202,6 +215,7 @@
 				D075BD841F6FF3CE007B8C86 /* Assets.xcassets */,
 				D075BD861F6FF3CE007B8C86 /* LaunchScreen.storyboard */,
 				D075BD891F6FF3CE007B8C86 /* Info.plist */,
+				D06FDE701F7A4CB400CC3DAB /* EventsViewController.swift */,
 			);
 			path = MiceBoy;
 			sourceTree = "<group>";
@@ -541,8 +555,10 @@
 				D0BCEDBF1F7071C50069F8F2 /* ConnectionSession.swift in Sources */,
 				D0BCEDC51F7074C60069F8F2 /* ConnectionBrowser.swift in Sources */,
 				D0BCEDBD1F7070EB0069F8F2 /* SubscriptionToken.swift in Sources */,
+				D06FDE741F7A4DC700CC3DAB /* OutputStream+Extensions.swift in Sources */,
 				D0BCEDB71F7025160069F8F2 /* RemoteEvent.swift in Sources */,
 				D0BCEDC31F7074840069F8F2 /* ConnectionAdvertiser.swift in Sources */,
+				D06FDE711F7A4CB400CC3DAB /* EventsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

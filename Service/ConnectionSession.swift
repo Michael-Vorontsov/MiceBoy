@@ -81,7 +81,7 @@ class ConnectionSessionManager: NSObject {
   
   func establishStream() throws -> OutputStream {
     guard let peer = session.connectedPeers.first else { throw SessionError.noPeers }
-    let stream = try session.startStream(withName: "mouseEvent", toPeer: peer)
+    let stream = try session.startStream(withName: "remoteEvents", toPeer: peer)
     return stream
   }
   

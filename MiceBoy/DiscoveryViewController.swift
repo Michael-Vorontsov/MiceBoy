@@ -10,213 +10,120 @@ import UIKit
 import MultipeerConnectivity
 import CoreMotion
 
-class DiscoveryViewController: UIViewController {
-  @IBOutlet var textView: UITextView!
+class DiscoveryViewController: UITableViewController {
   
-  @IBAction func switchActive(_ sender: UISwitch) {
-    paused = !sender.isOn
-  }
+  @IBOutlet var textView: UITextView?
   
-  @IBAction func buttonTouched(_ sender: Any) {
-    paused = true
-  }
-  
-  @IBAction func buttonReleased(_ sender: Any) {
-    paused = false
-  }
-  
-  
-  @IBAction func changeSensitivity(_ sender: UISlider) {
-    sensibility = Double(sender.value)
+  var hosts = [MCPeerID]()
+  var selectedPeer: MCPeerID? {
+    didSet {
+      guard nil != selectedPeer else { return }
+      DispatchQueue.main.async {
+        self.performSegue(withIdentifier: "selectPeer", sender: self)
+      }
+    }
   }
   
   let connectionService = ConnectionBrowser(peerName: UIDevice.current.name)
-  var session: ConnectionSessionManager? {
-    didSet {
-      guard let session = session else { return }
-      self.tokens.append( session.subscribeState {[unowned self] state in
-        DispatchQueue.main.async {
-          switch state {
-          case .connected:
-            self.textView.text.append("\n session connected!, establishing stream")
-            if let stream = try? session.establishStream() {
-              stream.schedule(in: RunLoop.current, forMode: .defaultRunLoopMode)
-              stream.delegate = self
-              stream.open()
-              self.outputStream = stream
-            }
-            
-          case .notConnected:
-            self.textView.text.append("\n session disconected")
-            self.outputStream = nil
-          case .connecting:
-            self.textView.text.append("\n session connecting")
-          }
-        }
-      })
-    }
-  }
-  var outputStream: OutputStream?
   var tokens = [TokenProtocol]()
   
+  var lastConnectedPeer: String? {
+    get {
+      return UserDefaults.standard.string(forKey: "lastPeer")
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: "lastPeer")
+      UserDefaults.standard.synchronize()
+    }
+  }
+  
   override func viewDidLoad() {
-    super.viewDidLoad()
     
+    super.viewDidLoad()
+    self.tableView.tableHeaderView = nil
+    self.tableView.tableFooterView = self.textView
     
     let token = connectionService.subscribeForDiscovery {[unowned self] (discovery) -> (Void) in
       DispatchQueue.main.async {
         switch discovery {
         case .found(let peer, _):
-          self.textView.text.append("\n Found: \(peer.displayName)")
-          let session = self.connectionService.invite(peer: peer)
-          self.session = session
+          self.print("\n Found: \(peer.displayName)")
+          self.tableView.beginUpdates()
+          self.hosts.append(peer)
+          let indexPath = IndexPath(row: self.hosts.count - 1, section: 0)
+          self.tableView.insertRows(at: [indexPath], with: .automatic)
+          self.tableView.endUpdates()
+          if peer.displayName == self.lastConnectedPeer {
+            self.selectedPeer = peer
+          }
         case .lost(let peer):
-          self.textView.text.append("\n lost: \(peer.displayName)")
-          self.session = nil
+          self.print("\n lost: \(peer.displayName)")
+          if let index = self.hosts.index(of: peer) {
+            self.tableView.beginUpdates()
+            self.hosts.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            self.tableView.endUpdates()
+          }
         }
       }
     }
     tokens.append(token)
     connectionService.startDiscovery()
-    enableMotioTracking()
-
   }
-  
   var sensibility = 10.0
   
-  var zeroGravity: CMAcceleration?
-  
-  func enableMotioTracking() {
-    guard motionManager.isDeviceMotionActive == false else { return }
-//    motionManager.gyroUpdateInterval = 0.1
-    motionManager.deviceMotionUpdateInterval = 0.1
-    motionManager.startDeviceMotionUpdates(to: OperationQueue()) {[unowned self] (data, error) in
-      if let error = error {
-        self.print(error.localizedDescription)
-        return
-      }
-      guard self.paused == false, let data = data else { return }
-      
-      let event = MouseEvent.motionData(motion: MouseEvent.MotionData(
-        gravity: MouseEvent.Vector(
-          x: data.gravity.x,
-          y: data.gravity.y,
-          z: data.gravity.z),
-        rotationChange: MouseEvent.Vector(
-          x: data.rotationRate.x,
-          y: data.rotationRate.y,
-          z: data.rotationRate.z),
-        acceleration: MouseEvent.Vector(
-          x: data.userAcceleration.x,
-          y: data.userAcceleration.y,
-          z: data.userAcceleration.z)
-      ))
-      
-//    let rotationRate = data.rotationRate
-//      let event = MouseEvent.move(delta: CGPoint(
-//        x: -rotationRate.z * self.sensibility,
-//        y: -rotationRate.x * self.sensibility)
-//      )
-      self.sendToHost(event: event)
-    }
-  }
-
-  var paused = false {
-    didSet {
-      guard let stream = self.outputStream else { return }
-      stream.send(object: MouseEvent.pause(paused))
-    }
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
   }
   
-  func sendToHost(event: MouseEvent) {
-    guard let stream = self.outputStream else { return }
-    stream.send(object: event)
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return hosts.count
   }
   
-  @IBAction func tapRecognised(_ sender: UITapGestureRecognizer) {
-//    guard let session = session else { return }
-//    print("Sending event to peer: \(session)")
-//    let button = (sender.numberOfTouches == 1) ? MouseEvent.ButtonType.left : MouseEvent.ButtonType.right
-    switch sender.state {
-    case .began:
-      paused = true
-//      session.send(object: MouseEvent.button(button, state: .down))
-    case .ended, .cancelled:
-      paused = false
-//      session.send(object: MouseEvent.button(button, state: .up))
-    default: break;
-      paused = false
-    }
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
   }
   
-  var lastPostion: CGPoint?
-  let encoder = JSONEncoder()
-  @IBAction func panRecognised(_ sender: UIPanGestureRecognizer) {
-    //    let delta = sender.velocity(in: view)
-    //    let length = sqrt(delta.x * delta.x + delta.y * delta.y)
-    //    let norm = 10.0 / length
-    //    let deltaNormilized = CGPoint(x: delta.x * norm, y: delta.y * norm)
-    //    let event = MouseEvent.move(delta: deltaNormilized)
-    
-    var delta = sender.translation(in: view)
-    if let lastPostion = lastPostion {
-      delta.x -= lastPostion.x
-      delta.y -= lastPostion.y
-    }
-    if sender.state == .changed {
-      lastPostion = delta
-    } else {
-      lastPostion = nil
-    }
-    
-    let event = MouseEvent.move(delta: delta)
-    guard let stream = outputStream else { return }
-    
-    stream.send(object: event)
-    
-//    session?.send(object: event)
+  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard indexPath.row < hosts.count else { return }
+    let host = hosts[indexPath.row]
+    cell.textLabel?.text = host.displayName
   }
   
-  let motionManager = CMMotionManager()
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard indexPath.row < hosts.count else { return }
+    let host = hosts[indexPath.row]
+    self.selectedPeer = host
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let destination = segue.destination as? EventsViewController {
+      guard let peer = selectedPeer else { return }
+//      guard let index = self.tableView.indexPathForSelectedRow?.row, index < hosts.count else { return }
+//      let peer = hosts[index]
+      destination.session = connectionService.invite(peer: peer)
+      destination.peer = selectedPeer
+      self.lastConnectedPeer = peer.displayName
+    }
+  }
   
 }
-private let encoder = JSONEncoder()
 
-extension OutputStream {
-  
-  func send<T: Codable>(object:T) {
-    let data = try! encoder.encode(object)
+extension DiscoveryViewController: TextPrintable {}
 
-    _ = data.withUnsafeBytes {
-      self.write($0, maxLength: data.count)
-    }
-  }
-
+protocol TextPrintable {
+  var textView: UITextView? { get }
+  func print(_ str: String)
 }
 
-extension DiscoveryViewController {
+extension TextPrintable {
   func print(_ str: String) {
     DispatchQueue.main.async {
-      self.textView.text.append("\n\(str)")
+      self.textView?.text.append("\n\(str)")
     }
   }
 }
 
-extension DiscoveryViewController : StreamDelegate {
-  func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-//    guard let stream = aStream as? OutputStream else { return }
-    switch eventCode {
-    case .openCompleted:
-      print("Stream established!")
-    case .errorOccurred:
-      print("Stream failed!")
-//    case .hasSpaceAvailable:
-//      print("Stream ready!")
-    default: break
-
-    }
-  }
-}
 
 
